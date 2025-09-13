@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ToDoリスト</title>
+</head>
+
+<body>
+    <h2>ToDo登録フォーム</h2>
+	<form th:action="@{/}" method="post">
+	    <label for="todo_title">ToDo：</label>
+	    <input type="text" id="todo_title" name="todoTitle" placeholder="やることを入力してください">
+	    <button type="submit">登録</button>
+	</form>
+
+    <!-- 成功・失敗メッセージ -->
+    <p th:if="${successMessage}" th:text="${successMessage}" style="color: green;"></p>
+    <p th:if="${failureMessage}" th:text="${failureMessage}" style="color: red;"></p>
+
+    <h2>現在のToDoリスト</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>タイトル</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="todo : ${todos}">
+                <td th:text="${todo.todoId}"></td>
+                <td th:text="${todo.todoTitle}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

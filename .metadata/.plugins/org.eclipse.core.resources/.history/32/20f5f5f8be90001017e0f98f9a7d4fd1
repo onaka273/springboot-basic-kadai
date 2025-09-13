@@ -1,0 +1,46 @@
+package com.example.springkadaitodo.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.springkadaitodo.entity.ToDo;
+import com.example.springkadaitodo.repository.ToDoRepository;
+
+@Service
+public class ToDoService {
+
+	 private final ToDoRepository todoRepository;
+	 
+	 public ToDoService(ToDoRepository todoRepository) {
+	        this.todoRepository = todoRepository;
+	    }
+	 
+	 // 新規TODOの登録メソッド
+	    public void createToDo(String todoTitle) {
+	        // 未入力チェック（空欄はNG）
+	        if (todoTitle == null || todoTitle.isEmpty()) {
+	            throw new IllegalArgumentException("ToDoを入力してください。");
+	        }
+
+	        // ユーザー名の重複チェック（完全一致はNG）
+	        if (!todoRepository.findByTodoTitle(todoTitle).isEmpty()) {
+	            throw new IllegalArgumentException("そのToDo名は既に使用されています。");
+	        }
+
+	        // TODO登録用のエンティティを作成
+	        ToDo todo = new ToDo();
+	        todo.setTodoTitle(todoTitle);
+
+	        // TODOの登録
+	        todoRepository.save(todo);
+	    }
+
+	    // TODOの一括取得メソッド
+	    public List<ToDo> getAllTodos() {
+	        return todoRepository.findAll();
+	    }
+	 
+}
+
+
