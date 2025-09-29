@@ -5,17 +5,27 @@
     <title>確認画面</title>
 </head>
 <body>
-<h2>入力内容の確認</h2>
+<h2>入力内容をご確認ください。</h2>
 
-<p>お名前：<span th:text="${contactForm.name}"></span></p>
-<p>メールアドレス：<span th:text="${contactForm.email}"></span></p>
-<p>お問い合わせ内容：<span th:text="${contactForm.message}"></span></p>
+<table border="1" cellpadding="8">
+    <tr>
+        <th>お名前</th>
+        <td th:text="${contactForm.name}"></td>
+    </tr>
+    <tr>
+        <th>メールアドレス</th>
+        <td th:text="${contactForm.email}"></td>
+    </tr>
+    <tr>
+        <th>お問い合わせ内容</th>
+        <td th:text="${contactForm.message}"></td>
+    </tr>
+</table>
 
 <form th:action="@{/contact/submit}" th:object="${contactForm}" method="post">
     <input type="hidden" th:field="*{name}">
     <input type="hidden" th:field="*{email}">
     <input type="hidden" th:field="*{message}">
-    <button type="submit">送信する</button>
 </form>
 
 </body>
